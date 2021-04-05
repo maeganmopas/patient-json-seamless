@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<title>SeamlessMD: Display Patient Data</title>
+<body style = "text-align:center;">
+
+<h1 style = "color:blue;">
+    Patient data from .json file:
+</h1>
+
+<p id="patientData"></p>
+
+<button onclick = "json2table()">
+    Click to display patient data
+</button>
+
+<script>
+// Assign .json to variable
+
+patientDatajson = {
+  "resourceType": "Patient",
+  "id": "xcda",
+  "text": {
+    "status": "generated",
+    "div": "<div> \n      \n      <p>Henry Levin the 7th</p>\n    \n    </div>"
+  },
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "htt://hl7.org/fhir/v2/0203",
+            "code": "MR"
+          }
+        ]
+      },
+      "system": "urn:oid:2.16.840.1.113883.19.5",
+      "value": "12345"
+    },
+    {
+      "active": true,
+      "name": {
+          "family": [
+            "Levin"
+          ],
+          "given": [
+            "Henry"
+          ]
+        },
+      "gender": "male",
+      "birthDate": "2020-09-24",
+      "managingOrganization": {
+        "reference": "Organization/2.16.840.1.113883.19.5",
+        "display": "University Health Network"
+      },
+      "conditions": [
+        "Diabetes",
+        "High blood pressure",
+        "Asthma"
+      ]
+    }
+  ]
+};
+
+// Create function to parse through .json and select
+function json2table() {
+
+// Loop through json for keys under 'name'
+document.getElementById("patientData").innerHTML += "Patient Name: "
+    for (x in patientDatajson.identifier[1].name){
+        document.getElementById("patientData").innerHTML += x + "<br>";
+        }
+// Access value from 'family' and 'given' keys
+// Store into variable and output variable
+
+// Loop through json for keys under 'managingOrganization'
+    document.getElementById("patientData").innerHTML += "Organization: ";
+    for (x in patientDatajson.identifier[1].managingOrganization){
+        document.getElementById("patientData").innerHTML += x + "<br>";
+        }
+// Access value from 'display' key and display as output
+
+// Loop through json for key under 'gender'
+    document.getElementById("patientData").innerHTML += "Gender: "
+    for (x in patientDatajson.identifier[1].gender){
+        document.getElementById("patientData").innerHTML += x + "<br>";
+        }
+// Access value from 'gender' key and display as output
+
+// Use length of array to display number of conditions
+    document.getElementById("patientData").innerHTML += "Number of conditions: "
+    document.getElementById("patientData").innerHTML += patientDatajson.identifier[1].conditions.length + "<br>";
+
+// Loop through json for keys under 'conditions'
+    document.getElementById("patientData").innerHTML += "List of conditions: "
+    for (x in patientDatajson.identifier[1].conditions){
+        document.getElementById("patientData").innerHTML += patientDatajson.identifier[1].conditions.value + "<br>";
+        }
+// Access values from 'conditions' key and convert to string
+// Display converted string values as output
+}
+
+</script>
+</body>
+</html>
